@@ -6,15 +6,30 @@
 		<RootNamespace>Inspired.Codes.Graphics.QrCodeGenerator</RootNamespace>
 		<AssemblyName>Inspired.Codes.Graphics.QrCodeGenerator</AssemblyName>
 		<LangVersion>13</LangVersion>
-		<Version>1.0.0</Version>
-		<Description>Fast, lightweight, dependency-free QR Code generator (Model 2, versions 1-40, all ECC levels) with SVG, PNG and text output.</Description>
-		<PackageTags>qr;qrcode;barcode;svg;png</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
+	<!-- Package metadata -->
+	<PropertyGroup>
+		<Version>1.0.1</Version>
+		<PackageId>Inspired.Codes.Graphics.QrCodeGenerator</PackageId>
+		<Title>QrCodeGenerator</Title>
+		<Authors>Peter Metz</Authors>
+		<Company>inspired-codes</Company>
+		<Copyright>Copyright © 2026 Peter Metz</Copyright>
+		<Description>Fast, lightweight, dependency-free QR Code generator (Model 2, versions 1-40, all ECC levels) with SVG, PNG and text output.</Description>
+		<PackageTags>qr;qrcode;qr-code;barcode;svg;png;generator</PackageTags>
+		<PackageProjectUrl>https://github.com/inspired-codes/QrCodeGenerator</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/inspired-codes/QrCodeGenerator.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>https://github.com/inspired-codes/QrCodeGenerator/releases</PackageReleaseNotes>
+	</PropertyGroup>
+
 	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 		<InternalsVisibleTo Include="QrCodeGenerator.Tests" />
 	</ItemGroup>
 

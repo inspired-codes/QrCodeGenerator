@@ -82,4 +82,5 @@ TestApp: `TestApp [text]` prints a QR code, `TestApp --files <dir> [text]` write
 
 ## Version Info
 
-1.0.0: initial release.
+- 1.0.1: complete NuGet package metadata (authors, project URL, readme). No code changes.
+- 1.0.0: initial release.
