@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="xunit" Version="2.7.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Test the netstandard2.1 build (portable bit helpers) with: dotnet test -p:LibTfm=netstandard2.1 -->
+    <ProjectReference Include="..\QrCodeGenerator\QrCodeGenerator.csproj" Condition="'$(LibTfm)' == ''" />
+    <ProjectReference Include="..\QrCodeGenerator\QrCodeGenerator.csproj" Condition="'$(LibTfm)' != ''" SetTargetFramework="TargetFramework=$(LibTfm)" />
+    <None Update="reference-vectors.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

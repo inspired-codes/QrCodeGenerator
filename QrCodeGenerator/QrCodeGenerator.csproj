@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<RootNamespace>Inspired.Codes.Graphics.QrCodeGenerator</RootNamespace>
+		<AssemblyName>Inspired.Codes.Graphics.QrCodeGenerator</AssemblyName>
+		<LangVersion>13</LangVersion>
+		<Version>1.0.0</Version>
+		<Description>Fast, lightweight, dependency-free QR Code generator (Model 2, versions 1-40, all ECC levels) with SVG, PNG and text output.</Description>
+		<PackageTags>qr;qrcode;barcode;svg;png</PackageTags>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="QrCodeGenerator.Tests" />
+	</ItemGroup>
+
+</Project>
