@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.1;net10.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<RootNamespace>Inspired.Codes.Graphics.QrCodeGenerator</RootNamespace>
 		<AssemblyName>Inspired.Codes.Graphics.QrCodeGenerator</AssemblyName>
@@ -13,7 +13,7 @@
 
 	<!-- Package metadata -->
 	<PropertyGroup>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageId>Inspired.Codes.Graphics.QrCodeGenerator</PackageId>
 		<Title>QrCodeGenerator</Title>
 		<Authors>Peter Metz</Authors>
@@ -26,6 +26,17 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>https://github.com/inspired-codes/QrCodeGenerator/releases</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<!-- Debugging support: SourceLink (provided by the .NET SDK for GitHub) and a .snupkg symbols package -->
+	<PropertyGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
 	<ItemGroup>

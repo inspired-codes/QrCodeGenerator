@@ -6,7 +6,7 @@ A fast, lightweight, dependency-free QR Code generator for .NET.
 - Automatic mode selection (numeric / alphanumeric / UTF-8 byte), ECI segments, manual segments
 - Automatic mask selection using the ISO/IEC 18004 penalty rules
 - Output: SVG, PNG (1-bit, no imaging library needed), Unicode text, or raw module access
-- No dependencies; targets `netstandard2.1` and `net8.0` (hardware popcount on modern runtimes)
+- No dependencies; targets `netstandard2.1` and `net10.0` (hardware popcount on modern runtimes)
 - Immutable results, thread-safe
 
 ## Usage
@@ -61,10 +61,16 @@ How:
 - Mask selection packs rows and columns into 64-bit words, applies the masks via precomputed
   periodic patterns, and scores the penalty rules with shifts and popcounts instead of per-module branches
 
+## Installation
+
+```
+dotnet add package Inspired.Codes.Graphics.QrCodeGenerator
+```
+
 ## Testing
 
 ```
-dotnet test                                    # against the net8.0 build
+dotnet test                                    # against the net10.0 build
 dotnet test -p:LibTfm=netstandard2.1           # against the netstandard2.1 build
 ```
 
@@ -77,10 +83,17 @@ dotnet test -p:LibTfm=netstandard2.1           # against the netstandard2.1 buil
   and concurrent first use of every Reed-Solomon table.
 - Generated PNGs were also scanned with ZXing-C++ for all 40 versions and ECC levels.
 
+## Releasing
+
+Bump `<Version>` in `QrCodeGenerator/QrCodeGenerator.csproj`, commit, then create a GitHub release whose tag is
+`v` + that version (e.g. `gh release create v1.0.3 --generate-notes`). The `publish` workflow tests the code,
+packs it and pushes it to nuget.org via Trusted Publishing (no API key), then attaches the package to the release.
+
 TestApp: `TestApp [text]` prints a QR code, `TestApp --files <dir> [text]` writes `qr.svg`/`qr.png`,
 `TestApp --bench` runs the benchmark, and `TestApp -- <text>` encodes text that starts with `--`.
 
 ## Version Info
 
+- 1.0.2: target `net10.0` instead of `net8.0`; SourceLink and symbols package; published to nuget.org.
 - 1.0.1: complete NuGet package metadata (authors, project URL, readme). No code changes.
 - 1.0.0: initial release.
