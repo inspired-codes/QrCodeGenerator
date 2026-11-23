@@ -1,10 +1,19 @@
 name: Publish to NuGet
 
-# Runs when a GitHub release is published. The release tag must be "v" + <Version> from the csproj.
+# Runs when a GitHub release is published, or manually ("Run workflow") for an existing release tag.
+# The tag must be "v" + <Version> from the csproj.
 # Authentication uses nuget.org Trusted Publishing (GitHub OIDC), so no API key is stored anywhere.
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish, e.g. v1.0.2
+        required: true
+
+env:
+  TAG: ${{ github.event.release.tag_name || inputs.tag }}
 
 jobs:
   publish:
@@ -15,6 +24,8 @@ jobs:
       contents: write   # attach the package to the GitHub release
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -23,9 +34,9 @@ jobs:
       - name: Check that the release tag matches the project version
         run: |
           version=$(dotnet msbuild QrCodeGenerator/QrCodeGenerator.csproj -getProperty:Version)
-          echo "Project version: $version, release tag: $GITHUB_REF_NAME"
-          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
-            echo "::error::Release tag $GITHUB_REF_NAME does not match project version v$version"
+          echo "Project version: $version, release tag: $TAG"
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error::Release tag $TAG does not match project version v$version"
             exit 1
           fi
 
@@ -47,14 +58,15 @@ jobs:
         with:
           user: ppmetz
 
+      # No --skip-duplicate: any rejection by nuget.org must fail the run and show the server's reason.
       - name: Push to nuget.org
         run: >
           dotnet nuget push "artifacts/*.nupkg"
           --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
           --source https://api.nuget.org/v3/index.json
-          --skip-duplicate
+          --verbosity detailed
 
       - name: Attach package to the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "$GITHUB_REF_NAME" artifacts/*.nupkg artifacts/*.snupkg --clobber
+        run: gh release upload "$TAG" artifacts/*.nupkg artifacts/*.snupkg --clobber
